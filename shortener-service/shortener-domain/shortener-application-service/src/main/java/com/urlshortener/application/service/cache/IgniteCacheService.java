@@ -17,7 +17,8 @@ public class IgniteCacheService {
 
     public IgniteCacheService(Ignite ignite) {
         this.cache = ignite.<ShortenUrlCommand, UrlShortenedResponse>getOrCreateCache("url-cache")
-            .withExpiryPolicy(factoryOf(ONE_HOUR).create());
+            .withExpiryPolicy(factoryOf(ONE_HOUR).create())
+            .withPartitionRecover();
     }
 
     public UrlShortenedResponse put(ShortenUrlCommand command, UrlShortenedResponse response) {

@@ -1,31 +1,36 @@
 package com.urlshortener.application.service.config;
 
-import java.util.List;
+import java.util.Arrays;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.ignite.Ignite;
 import org.apache.ignite.Ignition;
 import org.apache.ignite.configuration.IgniteConfiguration;
 import org.apache.ignite.spi.discovery.tcp.TcpDiscoverySpi;
 import org.apache.ignite.spi.discovery.tcp.ipfinder.vm.TcpDiscoveryVmIpFinder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Slf4j
 @Configuration
 public class CacheConfig {
+    @Value("${ignite.addresses}")
+    private String[] addresses;
 
     @Bean
     public Ignite igniteInstance() {
-        IgniteConfiguration igniteConfiguration = new IgniteConfiguration();
-        igniteConfiguration.setIgniteInstanceName("shortener-application-cache");
-        igniteConfiguration.setPeerClassLoadingEnabled(true);
+        var configuration = new IgniteConfiguration();
+        configuration.setClientMode(true);
+        configuration.setIgniteInstanceName("shortener-cache-client");
 
-        TcpDiscoverySpi tcpDiscoverySpi = new TcpDiscoverySpi();
-        TcpDiscoveryVmIpFinder tcpDiscoveryVmIpFinder = new TcpDiscoveryVmIpFinder();
-        tcpDiscoveryVmIpFinder.setAddresses(List.of("127.0.0.1:47500"));
-        tcpDiscoverySpi.setIpFinder(tcpDiscoveryVmIpFinder);
+        var ipFinder = new TcpDiscoveryVmIpFinder();
+        ipFinder.setAddresses(Arrays.asList(addresses));
 
-        igniteConfiguration.setDiscoverySpi(tcpDiscoverySpi);
+        var discoverySpi = new TcpDiscoverySpi();
+        discoverySpi.setIpFinder(ipFinder);
+        configuration.setDiscoverySpi(discoverySpi);
 
-        return Ignition.start(igniteConfiguration);
+        return Ignition.start(configuration);
     }
 }
