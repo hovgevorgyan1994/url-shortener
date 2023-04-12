@@ -15,18 +15,18 @@ import org.springframework.stereotype.Component;
 public class ShortenerMapper {
 
     public Url shortenCommandToUrl(ShortenUrlCommand shortenUrlCommand) {
-        var url = new Url(shortenUrlCommand.url());
+        var url = new Url(shortenUrlCommand.getUrl());
         url.setId(new UrlId(randomUUID()));
-        return Optional.ofNullable(shortenUrlCommand.expiration())
-            .map(expiration -> url.withExpiration(expiration, shortenUrlCommand.chronoUnit()))
+        return Optional.ofNullable(shortenUrlCommand.getExpiration())
+            .map(expiration -> url.withExpiration(expiration, shortenUrlCommand.getChronoUnit()))
             .orElse(url);
     }
 
     public RequestDetails shortenCommandToRequestDetails(ShortenUrlCommand command, String country) {
-        return new RequestDetails(command.ipAddress(), command.zonedDateTime()).withCountry(country);
+        return new RequestDetails(command.getIpAddress(), command.getZonedDateTime()).withCountry(country);
     }
 
-    public UrlShortenedResponse urlToResponse(Url urlEntity) {
-        return new UrlShortenedResponse(urlEntity.getId().getValue());
+    public UrlShortenedResponse urlToResponse(String baseUri,Url urlEntity) {
+        return new UrlShortenedResponse(baseUri,urlEntity.getId().getValue());
     }
 }
