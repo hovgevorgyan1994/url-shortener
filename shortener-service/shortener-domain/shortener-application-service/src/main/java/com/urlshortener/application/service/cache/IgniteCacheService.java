@@ -20,8 +20,9 @@ public class IgniteCacheService {
             .withExpiryPolicy(factoryOf(ONE_HOUR).create());
     }
 
-    public void put(ShortenUrlCommand command, UrlShortenedResponse response) {
+    public UrlShortenedResponse put(ShortenUrlCommand command, UrlShortenedResponse response) {
         cache.put(command, response);
+        return response;
     }
 
     public Optional<UrlShortenedResponse> getFromCache(ShortenUrlCommand command) {

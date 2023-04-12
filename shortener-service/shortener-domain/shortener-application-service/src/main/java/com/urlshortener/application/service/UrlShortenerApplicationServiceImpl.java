@@ -34,11 +34,8 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     @Override
     public UrlShortenedResponse shorten(ShortenUrlCommand shortenUrlCommand) {
         return cacheService.getFromCache(shortenUrlCommand)
-            .orElseGet(() -> {
-                var response = shortenerMapper.urlToResponse(baseUri, persist(shortenUrlCommand));
-                cacheService.put(shortenUrlCommand, response);
-                return response;
-            });
+            .orElseGet(() -> cacheService.put(shortenUrlCommand,
+                                              shortenerMapper.urlToResponse(baseUri, persist(shortenUrlCommand))));
     }
 
     @Override
