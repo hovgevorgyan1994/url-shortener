@@ -2,6 +2,7 @@ package com.urlshortener.dataaccess.entity;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
@@ -18,6 +19,7 @@ import lombok.Setter;
 public class UrlEntity {
     @Id
     private UUID id;
+    @Column(columnDefinition = "TEXT")
     private String url;
     private LocalDateTime expiresAt;
 }

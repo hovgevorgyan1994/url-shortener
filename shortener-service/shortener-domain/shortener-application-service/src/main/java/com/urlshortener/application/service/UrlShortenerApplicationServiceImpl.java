@@ -9,10 +9,9 @@ import com.urlshortener.application.service.ports.output.CountryIdentifier;
 import com.urlshortener.application.service.ports.output.UrlEntityRepository;
 import com.urlshortener.application.service.ports.output.UrlMessagePublisher;
 import com.urlshortener.domain.UrlDomainService;
-import com.urlshortener.domain.entity.Url;
-import com.urlshortener.domain.event.UrlShortenedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -24,25 +23,29 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     private final UrlEntityRepository urlEntityRepository;
     private final CountryIdentifier countryIdentifier;
     private final UrlDomainService urlDomainService;
+    @Value("${application.base.uri}")
+    private String baseUri;
 
     @Override
     public UrlShortenedResponse shorten(ShortenUrlCommand shortenUrlCommand) {
-        var country = countryIdentifier.identify(shortenUrlCommand.ipAddress());
+        var country = countryIdentifier.identify(shortenUrlCommand.getIpAddress());
         if (log.isInfoEnabled()) {
-            log.info("Attempt from {} to shorten url: {}", country, shortenUrlCommand.url());
+            log.info("Attempt from {} to shorten url: {}", country, shortenUrlCommand.getUrl());
         }
 
         var requestDetails = shortenerMapper.shortenCommandToRequestDetails(shortenUrlCommand, country);
         var url = shortenerMapper.shortenCommandToUrl(shortenUrlCommand);
-        UrlShortenedEvent shortenedEvent = urlDomainService.shorten(url, requestDetails);
+        var shortenedEvent = urlDomainService.shorten(url, requestDetails);
 
-        Url savedUrl = urlEntityRepository.persist(url);
+        var savedUrl = urlEntityRepository.persist(url);
         if (savedUrl == null) {
-            log.error("Could not save url from request: {}", shortenUrlCommand);
+            if (log.isWarnEnabled()) {
+                log.warn("Could not save url from request: {}", shortenUrlCommand);
+            }
             throw new UrlException("Could not save url from request: " + shortenUrlCommand);
         }
 
         messagePublisher.publish(shortenedEvent);
-        return shortenerMapper.urlToResponse(url);
+        return shortenerMapper.urlToResponse(baseUri, savedUrl);
     }
 }

@@ -23,7 +23,7 @@
         </dependency>
         <dependency>
             <groupId>com.urlshortener</groupId>
-            <artifactId>metric-domain-core</artifactId>
+            <artifactId>shortener-domain-core</artifactId>
         </dependency>
         <dependency>
             <groupId>com.urlshortener</groupId>
