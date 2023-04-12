@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.urlshortener</groupId>
+        <artifactId>url-shortener</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+    <artifactId>shortener-service</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>shortener-application</module>
+        <module>shortener-domain</module>
+        <module>shortener-messaging</module>
+        <module>shortener-container</module>
+        <module>shortener-dataaccess</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive-jackson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.quarkus</groupId>
+            <artifactId>quarkus-resteasy-reactive</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>
