@@ -11,4 +11,19 @@
 
     <artifactId>shortener-messaging</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>kafka-model</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>kafka-producer</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

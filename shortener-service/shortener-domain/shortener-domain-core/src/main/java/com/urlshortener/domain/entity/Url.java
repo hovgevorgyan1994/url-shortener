@@ -1,24 +1,23 @@
-package com.urlshortener.entity;
+package com.urlshortener.domain.entity;
 
 import static java.time.LocalDateTime.now;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
-import java.util.UUID;
 
-public class UrlEntity extends BaseEntity<UUID> {
+import com.urlshortener.entity.BaseEntity;
+import com.urlshortener.valueobject.UrlId;
 
-    private final String givenUrl;
-    private final String shortenedUrl;
+public class Url extends BaseEntity<UrlId> {
+    private final String url;
     private LocalDateTime expiresAt;
 
-    public UrlEntity(String givenUrl, String shortenedUrl) {
-        this.givenUrl = givenUrl;
-        this.shortenedUrl = shortenedUrl;
+    public Url(String givenUrl) {
+        this.url = givenUrl;
     }
 
-    public void setExpireIn(long time, ChronoUnit chronoUnit) {
-        expiresAt = switch (chronoUnit) {
+    public Url withExpiration(long time, ChronoUnit chronoUnit) {
+        this.expiresAt = switch (chronoUnit) {
             case SECONDS -> now().plusSeconds(time);
             case MINUTES -> now().plusMinutes(time);
             case HOURS -> now().plusHours(time);
@@ -28,14 +27,16 @@ public class UrlEntity extends BaseEntity<UUID> {
             case YEARS -> now().plusYears(time);
             default -> null;
         };
+        return this;
     }
 
-    public String getGivenUrl() {
-        return givenUrl;
+    public Url withExpiration(LocalDateTime expiresAt) {
+        this.expiresAt = expiresAt;
+        return this;
     }
 
-    public String getShortenedUrl() {
-        return shortenedUrl;
+    public String getUrl() {
+        return url;
     }
 
     public LocalDateTime getExpiresAt() {

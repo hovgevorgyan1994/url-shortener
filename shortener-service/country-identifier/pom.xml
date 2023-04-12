@@ -5,16 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.urlshortener</groupId>
-        <artifactId>metric-service</artifactId>
+        <artifactId>shortener-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>metric-container</artifactId>
+    <artifactId>country-identifier</artifactId>
 
     <dependencies>
         <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-application-service</artifactId>
         </dependency>
     </dependencies>
 

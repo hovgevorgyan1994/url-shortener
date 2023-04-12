@@ -11,4 +11,32 @@
 
     <artifactId>shortener-container</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>country-identifier</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-application</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-dataaccess</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-messaging</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>
