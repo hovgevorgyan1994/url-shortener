@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ignite xmlns="http://ignite.apache.org/schema/dml"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://ignite.apache.org/schema/dml http://ignite.apache.org/schema/dml/ignite-dml.xsd">
+    <cache name="url-cache"/>
+</ignite>

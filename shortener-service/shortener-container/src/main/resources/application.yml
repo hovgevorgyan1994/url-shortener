@@ -19,3 +19,5 @@ spring:
 application:
   base:
     uri: http://localhost:8888/url/%s
+
+

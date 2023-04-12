@@ -29,6 +29,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
+        <apache-ignite.version>1.0.0</apache-ignite.version>
     </properties>
 
     <dependencyManagement>
@@ -122,6 +123,11 @@
                 <groupId>com.urlshortener</groupId>
                 <artifactId>country-identifier</artifactId>
                 <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.ignite</groupId>
+                <artifactId>ignite-spring-boot-autoconfigure-ext</artifactId>
+                <version>${apache-ignite.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

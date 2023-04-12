@@ -5,7 +5,6 @@ import static java.time.ZonedDateTime.now;
 import java.net.URI;
 
 import com.urlshortener.application.controller.ShortenerApi;
-import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
 import com.urlshortener.application.service.ports.input.UrlShortenerApplicationService;
@@ -17,6 +16,7 @@ import reactor.core.publisher.Mono;
 
 @Component
 @RequiredArgsConstructor
+@SuppressWarnings("all")
 public class ShortenerHandler implements ShortenerApi {
 
     private final UrlShortenerApplicationService shortenerApplicationService;
@@ -33,9 +33,10 @@ public class ShortenerHandler implements ShortenerApi {
 
     @Override
     public Mono<ServerResponse> getActualUrl(ServerRequest serverRequest) {
-        ActualUrlResponse id = shortenerApplicationService
-            .getActualUrl(serverRequest.pathVariable("id"));
-        return ServerResponse.temporaryRedirect(URI.create(id.actualUrl())).build();
+        return ServerResponse.temporaryRedirect(
+            URI.create(shortenerApplicationService
+                           .getActualUrl(serverRequest.pathVariable("id"))
+                           .actualUrl())).build();
     }
 
     private static String getHostString(ServerRequest serverRequest) {

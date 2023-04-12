@@ -1,0 +1,13 @@
+version: "3.7"
+
+services:
+  ignite:
+    image: apacheignite/ignite:latest
+    ports:
+      - "47100:47100"
+      - "47500:47500"
+      - "47501:47501"
+    environment:
+      - "CONFIG_URI=file:///ignite-config.xml"
+    volumes:
+      - "./ignite-config.xml:/ignite/config/ignite-config.xml"

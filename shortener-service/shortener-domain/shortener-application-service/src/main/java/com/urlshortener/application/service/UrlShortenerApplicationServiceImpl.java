@@ -1,5 +1,6 @@
 package com.urlshortener.application.service;
 
+import com.urlshortener.application.service.cache.IgniteCacheService;
 import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
@@ -10,8 +11,10 @@ import com.urlshortener.application.service.ports.output.CountryIdentifier;
 import com.urlshortener.application.service.ports.output.UrlEntityRepository;
 import com.urlshortener.application.service.ports.output.UrlMessagePublisher;
 import com.urlshortener.domain.UrlDomainService;
+import com.urlshortener.domain.entity.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,11 +27,27 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     private final UrlEntityRepository urlEntityRepository;
     private final CountryIdentifier countryIdentifier;
     private final UrlDomainService urlDomainService;
+    private final IgniteCacheService cacheService;
     @Value("${application.base.uri}")
     private String baseUri;
 
     @Override
     public UrlShortenedResponse shorten(ShortenUrlCommand shortenUrlCommand) {
+        return cacheService.getFromCache(shortenUrlCommand)
+            .orElseGet(() -> {
+                var response = shortenerMapper.urlToResponse(baseUri, persist(shortenUrlCommand));
+                cacheService.put(shortenUrlCommand, response);
+                return response;
+            });
+    }
+
+    @Override
+    public ActualUrlResponse getActualUrl(String urlId) {
+        return new ActualUrlResponse(urlEntityRepository.actualUrl(urlId).getUrl());
+    }
+
+    @NotNull
+    private Url persist(ShortenUrlCommand shortenUrlCommand) {
         var country = countryIdentifier.identify(shortenUrlCommand.getIpAddress());
         if (log.isInfoEnabled()) {
             log.info("Attempt from {} to shorten url: {}", country, shortenUrlCommand.getUrl());
@@ -47,11 +66,6 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
         }
 
         messagePublisher.publish(shortenedEvent);
-        return shortenerMapper.urlToResponse(baseUri, savedUrl);
-    }
-
-    @Override
-    public ActualUrlResponse getActualUrl(String urlId) {
-        return new ActualUrlResponse(urlEntityRepository.actualUrl(urlId).getUrl());
+        return savedUrl;
     }
 }

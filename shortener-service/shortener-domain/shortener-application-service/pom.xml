@@ -16,6 +16,12 @@
             <groupId>com.urlshortener</groupId>
             <artifactId>shortener-domain-core</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>org.apache.ignite</groupId>
+            <artifactId>ignite-spring</artifactId>
+            <version>2.14.0</version>
+        </dependency>
     </dependencies>
 
 </project>
