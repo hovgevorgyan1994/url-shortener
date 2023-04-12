@@ -2,7 +2,10 @@ package com.urlshortener.application.controller.impl;
 
 import static java.time.ZonedDateTime.now;
 
+import java.net.URI;
+
 import com.urlshortener.application.controller.ShortenerApi;
+import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
 import com.urlshortener.application.service.ports.input.UrlShortenerApplicationService;
@@ -30,7 +33,9 @@ public class ShortenerHandler implements ShortenerApi {
 
     @Override
     public Mono<ServerResponse> getActualUrl(ServerRequest serverRequest) {
-        return ServerResponse.ok().body(Mono.just("tvac url-y"), String.class);
+        ActualUrlResponse id = shortenerApplicationService
+            .getActualUrl(serverRequest.pathVariable("id"));
+        return ServerResponse.temporaryRedirect(URI.create(id.actualUrl())).build();
     }
 
     private static String getHostString(ServerRequest serverRequest) {

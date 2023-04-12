@@ -1,5 +1,6 @@
 package com.urlshortener.application.service;
 
+import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
 import com.urlshortener.application.service.exception.UrlException;
@@ -47,5 +48,10 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
 
         messagePublisher.publish(shortenedEvent);
         return shortenerMapper.urlToResponse(baseUri, savedUrl);
+    }
+
+    @Override
+    public ActualUrlResponse getActualUrl(String urlId) {
+        return new ActualUrlResponse(urlEntityRepository.actualUrl(urlId).getUrl());
     }
 }

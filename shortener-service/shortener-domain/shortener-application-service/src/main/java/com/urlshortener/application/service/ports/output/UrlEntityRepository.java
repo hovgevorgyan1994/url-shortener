@@ -4,4 +4,6 @@ import com.urlshortener.domain.entity.Url;
 
 public interface UrlEntityRepository {
     Url persist(Url url);
+
+    Url actualUrl(String urlId);
 }
