@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.urlshortener</groupId>
-        <artifactId>metric-service</artifactId>
+        <artifactId>metrics-service</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>metric-dataaccess</artifactId>
+    <artifactId>metric-application</artifactId>
 
 </project>

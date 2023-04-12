@@ -18,7 +18,7 @@
 
     <modules>
         <module>shortener-service</module>
-        <module>metric-service</module>
+        <module>metrics-service</module>
         <module>infrastructure</module>
         <module>common</module>
     </modules>
