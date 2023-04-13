@@ -18,7 +18,7 @@ public class ShortenerMapper {
         var url = new Url(shortenUrlCommand.getUrl());
         url.setId(new UrlId(randomUUID()));
         return Optional.ofNullable(shortenUrlCommand.getExpiration())
-            .map(expiration -> url.withExpiration(expiration, shortenUrlCommand.getChronoUnit()))
+            .map(expiration -> url.withExpiration(expiration, shortenUrlCommand.getTimeUnit()))
             .orElse(url);
     }
 

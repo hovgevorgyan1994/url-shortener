@@ -2,8 +2,8 @@ package com.urlshortener.application.service.dto;
 
 import java.io.Serializable;
 import java.time.Instant;
-import java.time.temporal.ChronoUnit;
 
+import com.urlshortener.dto.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -16,7 +16,7 @@ import lombok.Setter;
 public final class ShortenUrlCommand implements Serializable {
     private String url;
     private Long expiration;
-    private ChronoUnit chronoUnit;
+    private TimeUnit timeUnit;
     private String ipAddress;
     private Instant zonedDateTime;
 
