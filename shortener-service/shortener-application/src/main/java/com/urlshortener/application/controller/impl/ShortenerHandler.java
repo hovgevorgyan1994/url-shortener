@@ -22,9 +22,8 @@ public class ShortenerHandler implements ShortenerApi {
     @Override
     public Mono<ServerResponse> shortenUrl(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(ShortenUrlCommand.class)
-            .flatMap(shortenUrlCommand -> {
-                var response = shortenerApplicationService
-                    .shorten(shortenUrlCommand.withRequestDetails(getHostString(serverRequest), null));
+            .flatMap(command -> {
+                var response = shortenerApplicationService.shorten(command.withIpAddress(getHostString(serverRequest)));
                 return ServerResponse.ok().body(response, UrlShortenedResponse.class);
             });
     }

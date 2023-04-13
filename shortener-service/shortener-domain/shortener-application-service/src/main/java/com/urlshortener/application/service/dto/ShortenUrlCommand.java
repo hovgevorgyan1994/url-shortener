@@ -20,9 +20,8 @@ public final class ShortenUrlCommand implements Serializable {
     private String ipAddress;
     private Instant zonedDateTime;
 
-    public ShortenUrlCommand withRequestDetails(String ipAddress, Instant zonedDateTime) {
+    public ShortenUrlCommand withIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
-        this.zonedDateTime = zonedDateTime;
         return this;
     }
 }

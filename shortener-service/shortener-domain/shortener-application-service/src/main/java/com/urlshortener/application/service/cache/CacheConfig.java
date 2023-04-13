@@ -9,13 +9,23 @@ import com.hazelcast.config.SerializationConfig;
 import com.hazelcast.config.SerializerConfig;
 import com.hazelcast.core.HazelcastInstance;
 import com.urlshortener.application.service.cache.serilzier.HazelCastSerializer;
+import lombok.Getter;
+import lombok.Setter;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+@Getter
+@Setter
 @Configuration
 @EnableCaching
+@ConfigurationProperties(prefix = "hazelcast.cache")
 public class CacheConfig {
+    private int expiration;
+    private String responseCache;
+    private String urlCache;
+
     @Bean
     public HazelcastInstance urlCacheHazelcastInstance(List<HazelCastSerializer<?>> cacheSerializers) {
         var serializationConfig = new SerializationConfig();

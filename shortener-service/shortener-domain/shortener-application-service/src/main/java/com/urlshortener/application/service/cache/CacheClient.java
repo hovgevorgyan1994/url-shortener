@@ -8,9 +8,9 @@ public interface CacheClient {
 
     void put(ShortenUrlCommand command, UrlShortenedResponse response);
 
-    UrlShortenedResponse getFromCache(ShortenUrlCommand command);
+    UrlShortenedResponse responseFromCache(String url);
 
     void put(Url url);
 
-    Url getFromCache(String urlId);
+    Url urlFromCache(String urlId);
 }

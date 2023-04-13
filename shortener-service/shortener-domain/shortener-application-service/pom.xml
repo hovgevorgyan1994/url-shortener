@@ -25,18 +25,18 @@
         <dependency>
             <groupId>com.hazelcast</groupId>
             <artifactId>hazelcast</artifactId>
-            <version>4.0.6</version>
+            <version>${hazelcast.version}</version>
         </dependency>
 
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
-            <version>1.9.13</version>
+            <version>${codehaus-jackson.version}</version>
         </dependency>
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-smile</artifactId>
-            <version>1.9.13</version>
+            <version>${codehaus-jackson.version}</version>
         </dependency>
     </dependencies>
 

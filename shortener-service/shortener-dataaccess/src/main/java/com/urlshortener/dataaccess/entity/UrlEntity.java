@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.With;
 
 @Getter
 @Setter
@@ -21,5 +22,6 @@ public class UrlEntity {
     private UUID id;
     @Column(columnDefinition = "TEXT")
     private String url;
+    @With
     private LocalDateTime expiresAt;
 }
