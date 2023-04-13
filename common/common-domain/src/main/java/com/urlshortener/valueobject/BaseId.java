@@ -1,11 +1,14 @@
 package com.urlshortener.valueobject;
 
-import java.util.Objects;
+import java.io.Serializable;
 
-public abstract class BaseId<T> {
-    private final T value;
+public abstract class BaseId<T> implements Serializable {
+    private T value;
 
-    protected BaseId(T value) {
+    public BaseId() {
+    }
+
+    public BaseId(T value) {
         this.value = value;
     }
 
@@ -13,20 +16,7 @@ public abstract class BaseId<T> {
         return value;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        BaseId<?> baseId = (BaseId<?>) o;
-        return value.equals(baseId.value);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(value);
+    public void setValue(T value) {
+        this.value = value;
     }
 }

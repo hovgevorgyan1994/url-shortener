@@ -1,6 +1,8 @@
 package com.urlshortener.application.service;
 
-import com.urlshortener.application.service.cache.IgniteCacheService;
+import static java.util.Objects.nonNull;
+
+import com.urlshortener.application.service.cache.CacheClient;
 import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
@@ -14,9 +16,9 @@ import com.urlshortener.domain.UrlDomainService;
 import com.urlshortener.domain.entity.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 @Slf4j
 @Service
@@ -27,23 +29,42 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     private final UrlEntityRepository urlEntityRepository;
     private final CountryIdentifier countryIdentifier;
     private final UrlDomainService urlDomainService;
-    private final IgniteCacheService cacheService;
+    private final CacheClient cacheClient;
     @Value("${application.base.uri}")
     private String baseUri;
 
     @Override
-    public UrlShortenedResponse shorten(ShortenUrlCommand shortenUrlCommand) {
-        return cacheService.getFromCache(shortenUrlCommand)
-            .orElseGet(() -> cacheService.put(shortenUrlCommand,
-                                              shortenerMapper.urlToResponse(baseUri, persist(shortenUrlCommand))));
+    public Mono<UrlShortenedResponse> shorten(ShortenUrlCommand shortenUrlCommand) {
+        return Mono.create(sink -> {
+            var fromCache = cacheClient.getFromCache(shortenUrlCommand);
+            if (nonNull(fromCache)) {
+                sink.success(fromCache);
+            } else {
+                sink.success(saveAndReturn(shortenUrlCommand));
+            }
+        });
     }
 
     @Override
-    public ActualUrlResponse getActualUrl(String urlId) {
-        return new ActualUrlResponse(urlEntityRepository.actualUrl(urlId).getUrl());
+    public Mono<ActualUrlResponse> getActualUrl(String urlId) {
+        return Mono.create(sink -> {
+            var fromCache = cacheClient.getFromCache(urlId);
+            if (nonNull(fromCache)) {
+                sink.success(ActualUrlResponse.of(fromCache.getUrl()));
+            } else {
+                sink.success(ActualUrlResponse.of(urlEntityRepository.actualUrl(urlId).getUrl()));
+            }
+        });
     }
 
-    @NotNull
+    private UrlShortenedResponse saveAndReturn(ShortenUrlCommand shortenUrlCommand) {
+        var persist = persist(shortenUrlCommand);
+        cacheClient.put(persist);
+        var response = shortenerMapper.urlToResponse(baseUri, persist);
+        cacheClient.put(shortenUrlCommand, response);
+        return response;
+    }
+
     private Url persist(ShortenUrlCommand shortenUrlCommand) {
         var country = countryIdentifier.identify(shortenUrlCommand.getIpAddress());
         if (log.isInfoEnabled()) {

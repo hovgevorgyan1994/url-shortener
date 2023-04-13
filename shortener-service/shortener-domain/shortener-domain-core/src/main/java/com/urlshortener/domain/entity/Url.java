@@ -9,11 +9,14 @@ import com.urlshortener.entity.BaseEntity;
 import com.urlshortener.valueobject.UrlId;
 
 public class Url extends BaseEntity<UrlId> {
-    private final String url;
+    private String url;
     private LocalDateTime expiresAt;
 
     public Url(String givenUrl) {
         this.url = givenUrl;
+    }
+
+    public Url() {
     }
 
     public Url withExpiration(long time, ChronoUnit chronoUnit) {

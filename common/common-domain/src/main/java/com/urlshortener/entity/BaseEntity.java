@@ -1,8 +1,9 @@
 package com.urlshortener.entity;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class BaseEntity<ID> {
+public abstract class BaseEntity<ID> implements Serializable {
     private ID id;
 
     public ID getId() {

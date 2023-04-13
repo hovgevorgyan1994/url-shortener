@@ -1,16 +1,16 @@
 package com.urlshortener.domain.entity;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 
 import com.urlshortener.entity.BaseEntity;
 import com.urlshortener.valueobject.RequestId;
 
 public class RequestDetails extends BaseEntity<RequestId> {
     private final String ipAddress;
-    private final ZonedDateTime zonedDateTime;
+    private final Instant zonedDateTime;
     private String country;
 
-    public RequestDetails(String ipAddress, ZonedDateTime zonedDateTime) {
+    public RequestDetails(String ipAddress, Instant zonedDateTime) {
         this.ipAddress = ipAddress;
         this.zonedDateTime = zonedDateTime;
     }
@@ -24,7 +24,7 @@ public class RequestDetails extends BaseEntity<RequestId> {
         return ipAddress;
     }
 
-    public ZonedDateTime getZonedDateTime() {
+    public Instant getZonedDateTime() {
         return zonedDateTime;
     }
 

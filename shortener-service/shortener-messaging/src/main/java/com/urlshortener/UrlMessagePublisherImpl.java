@@ -8,6 +8,6 @@ import org.springframework.stereotype.Component;
 public class UrlMessagePublisherImpl implements UrlMessagePublisher {
     @Override
     public void publish(UrlShortenedEvent urlShortenedEvent) {
-        throw new IllegalStateException("not implemented");
+        //throw new IllegalStateException("not implemented");
     }
 }

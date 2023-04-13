@@ -6,4 +6,5 @@ public class UrlId extends BaseId<UUID> {
     public UrlId(UUID value) {
         super(value);
     }
+    public UrlId(){}
 }

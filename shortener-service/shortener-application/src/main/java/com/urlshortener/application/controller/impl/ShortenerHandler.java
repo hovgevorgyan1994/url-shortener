@@ -1,8 +1,6 @@
 package com.urlshortener.application.controller.impl;
 
-import static java.time.ZonedDateTime.now;
-
-import java.net.URI;
+import static java.net.URI.create;
 
 import com.urlshortener.application.controller.ShortenerApi;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
@@ -26,17 +24,15 @@ public class ShortenerHandler implements ShortenerApi {
         return serverRequest.bodyToMono(ShortenUrlCommand.class)
             .flatMap(shortenUrlCommand -> {
                 var response = shortenerApplicationService
-                    .shorten(shortenUrlCommand.withRequestDetails(getHostString(serverRequest), now()));
-                return ServerResponse.ok().body(Mono.just(response), UrlShortenedResponse.class);
+                    .shorten(shortenUrlCommand.withRequestDetails(getHostString(serverRequest), null));
+                return ServerResponse.ok().body(response, UrlShortenedResponse.class);
             });
     }
 
     @Override
     public Mono<ServerResponse> getActualUrl(ServerRequest serverRequest) {
-        return ServerResponse.temporaryRedirect(
-            URI.create(shortenerApplicationService
-                           .getActualUrl(serverRequest.pathVariable("id"))
-                           .actualUrl())).build();
+        return shortenerApplicationService.getActualUrl(serverRequest.pathVariable("id"))
+            .flatMap(res -> ServerResponse.temporaryRedirect(create(res.actualUrl())).build());
     }
 
     private static String getHostString(ServerRequest serverRequest) {
