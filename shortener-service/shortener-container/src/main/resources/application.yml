@@ -25,3 +25,9 @@ hazelcast:
     expiration: 10 #minutes
     response-cache: shortener-response-cache
     url-cache: shortened-url-cache
+
+
+countryidentifier:
+  config:
+    ip-stack-api-key: 442464b9ca980cfab3858d8356e8dc88
+    ip-stack-uri: http://api.ipstack.com/%s?access_key=%s
