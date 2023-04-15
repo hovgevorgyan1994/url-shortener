@@ -2,8 +2,8 @@ package com.urlshortener.domain.entity;
 
 import java.time.Instant;
 
-import com.urlshortener.entity.BaseEntity;
-import com.urlshortener.valueobject.RequestId;
+import com.urlshortener.common.domain.entity.BaseEntity;
+import com.urlshortener.common.domain.valueobject.RequestId;
 
 public class RequestDetails extends BaseEntity<RequestId> {
     private final String ipAddress;

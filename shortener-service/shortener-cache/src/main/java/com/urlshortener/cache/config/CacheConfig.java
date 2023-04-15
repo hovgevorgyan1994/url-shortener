@@ -1,4 +1,4 @@
-package com.urlshortener.application.service.cache;
+package com.urlshortener.cache.config;
 
 import static com.hazelcast.client.HazelcastClient.newHazelcastClient;
 
@@ -8,7 +8,7 @@ import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.config.SerializationConfig;
 import com.hazelcast.config.SerializerConfig;
 import com.hazelcast.core.HazelcastInstance;
-import com.urlshortener.application.service.cache.serilzier.HazelCastSerializer;
+import com.urlshortener.cache.config.serializer.HazelCastSerializer;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

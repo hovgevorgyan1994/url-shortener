@@ -8,7 +8,7 @@ import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
 import com.urlshortener.domain.entity.RequestDetails;
 import com.urlshortener.domain.entity.Url;
-import com.urlshortener.valueobject.UrlId;
+import com.urlshortener.common.domain.valueobject.UrlId;
 import org.springframework.stereotype.Component;
 
 @Component

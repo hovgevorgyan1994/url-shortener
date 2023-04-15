@@ -1,4 +1,4 @@
-package com.urlshortener.exception;
+package com.urlshortener.common.domain.exception;
 
 public class BaseException extends RuntimeException {
 

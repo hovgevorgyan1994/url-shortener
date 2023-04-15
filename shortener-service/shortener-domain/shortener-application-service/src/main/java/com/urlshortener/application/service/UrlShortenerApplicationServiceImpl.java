@@ -1,8 +1,8 @@
 package com.urlshortener.application.service;
 
 import static java.util.Objects.nonNull;
+import static java.util.concurrent.TimeUnit.HOURS;
 
-import com.urlshortener.application.service.cache.CacheClient;
 import com.urlshortener.application.service.dto.ActualUrlResponse;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
@@ -12,6 +12,7 @@ import com.urlshortener.application.service.ports.input.UrlShortenerApplicationS
 import com.urlshortener.application.service.ports.output.CountryIdentifier;
 import com.urlshortener.application.service.ports.output.UrlMessagePublisher;
 import com.urlshortener.application.service.ports.output.UrlRepository;
+import com.urlshortener.common.cache.CacheClient;
 import com.urlshortener.domain.UrlDomainService;
 import com.urlshortener.domain.entity.Url;
 import lombok.RequiredArgsConstructor;
@@ -29,19 +30,19 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     private final UrlRepository urlRepository;
     private final CountryIdentifier countryIdentifier;
     private final UrlDomainService urlDomainService;
-    private final CacheClient cacheClient;
+    private final CacheClient<String, Url> urlCacheClient;
+    private final CacheClient<String, UrlShortenedResponse> responseCacheClient;
     @Value("${application.base.uri}")
     private String baseUri;
 
     @Override
     public Mono<UrlShortenedResponse> shorten(ShortenUrlCommand shortenUrlCommand) {
         return Mono.create(sink -> {
-            var fromCache = cacheClient.responseFromCache(shortenUrlCommand.getUrl());
+            var fromCache = responseCacheClient.get(shortenUrlCommand.getUrl());
             if (nonNull(fromCache)) {
                 sink.success(fromCache);
             } else {
                 var response = saveAndReturn(shortenUrlCommand);
-                cacheClient.put(shortenUrlCommand, response);
                 sink.success(response);
             }
         });
@@ -50,20 +51,22 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     @Override
     public Mono<ActualUrlResponse> getActualUrl(String urlId) {
         return Mono.create(sink -> {
-            var fromCache = cacheClient.urlFromCache(urlId);
+            var fromCache = urlCacheClient.get(urlId);
             if (nonNull(fromCache)) {
                 sink.success(ActualUrlResponse.of(fromCache.getUrl()));
             } else {
-                sink.success(ActualUrlResponse.of(urlRepository.actualUrl(urlId).getUrl()));
+                var url = urlRepository.actualUrl(urlId);
+                urlCacheClient.cache(url.getUrl(), url, 10, HOURS);
+                sink.success(ActualUrlResponse.of(url.getUrl()));
             }
         });
     }
 
     private UrlShortenedResponse saveAndReturn(ShortenUrlCommand shortenUrlCommand) {
-        var persist = persist(shortenUrlCommand);
-        cacheClient.put(persist);
-        var response = shortenerMapper.urlToResponse(baseUri, persist);
-        cacheClient.put(shortenUrlCommand, response);
+        Url url = persist(shortenUrlCommand);
+        urlCacheClient.cache(url.getId().getValue().toString(), url);
+        var response = shortenerMapper.urlToResponse(baseUri, url);
+        responseCacheClient.cache(shortenUrlCommand.getUrl(), response, 300);
         return response;
     }
 

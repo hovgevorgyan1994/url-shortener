@@ -2,7 +2,7 @@ package com.urlshortener.dataaccess.mapper;
 
 import com.urlshortener.dataaccess.entity.UrlEntity;
 import com.urlshortener.domain.entity.Url;
-import com.urlshortener.valueobject.UrlId;
+import com.urlshortener.common.domain.valueobject.UrlId;
 import org.springframework.stereotype.Component;
 
 @Component

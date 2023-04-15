@@ -1,4 +1,4 @@
-package com.urlshortener.entity;
+package com.urlshortener.common.domain.entity;
 
 import java.io.Serializable;
 import java.util.Objects;

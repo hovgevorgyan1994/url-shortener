@@ -1,4 +1,4 @@
-package com.urlshortener.valueobject;
+package com.urlshortener.common.domain.valueobject;
 
 import java.util.UUID;
 

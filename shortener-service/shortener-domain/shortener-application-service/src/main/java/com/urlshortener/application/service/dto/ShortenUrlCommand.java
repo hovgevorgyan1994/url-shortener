@@ -3,7 +3,7 @@ package com.urlshortener.application.service.dto;
 import java.io.Serializable;
 import java.time.Instant;
 
-import com.urlshortener.dto.TimeUnit;
+import com.urlshortener.common.domain.dto.TimeUnit;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

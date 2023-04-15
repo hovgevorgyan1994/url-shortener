@@ -4,9 +4,9 @@ import static java.time.LocalDateTime.now;
 
 import java.time.LocalDateTime;
 
-import com.urlshortener.dto.TimeUnit;
-import com.urlshortener.entity.BaseEntity;
-import com.urlshortener.valueobject.UrlId;
+import com.urlshortener.common.domain.dto.TimeUnit;
+import com.urlshortener.common.domain.entity.BaseEntity;
+import com.urlshortener.common.domain.valueobject.UrlId;
 
 public class Url extends BaseEntity<UrlId> {
     private String url;

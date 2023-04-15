@@ -1,4 +1,4 @@
-package com.urlshortener.application.service.cache.serilzier;
+package com.urlshortener.cache.config.serializer;
 
 import com.urlshortener.application.service.dto.UrlShortenedResponse;
 import org.springframework.stereotype.Component;
@@ -6,11 +6,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class UrlShortenedResponseSerializer extends HazelCastSerializer<UrlShortenedResponse> {
     public UrlShortenedResponseSerializer() {
-        super(UrlShortenedResponse.class);
-    }
-
-    @Override
-    public int getTypeId() {
-        return 2;
+        super(UrlShortenedResponse.class, 1);
     }
 }

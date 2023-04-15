@@ -1,4 +1,4 @@
-package com.urlshortener.dto;
+package com.urlshortener.common.domain.dto;
 
 public enum TimeUnit {
     SECONDS,

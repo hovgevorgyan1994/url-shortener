@@ -22,7 +22,7 @@ application:
 
 hazelcast:
   cache:
-    expiration: 10 #minutes
+    expiration: 300 #minutes
     response-cache: shortener-response-cache
     url-cache: shortened-url-cache
 
