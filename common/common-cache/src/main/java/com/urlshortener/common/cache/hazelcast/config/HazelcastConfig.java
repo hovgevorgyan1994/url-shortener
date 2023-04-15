@@ -1,6 +1,7 @@
 package com.urlshortener.common.cache.hazelcast.config;
 
 import static com.hazelcast.client.HazelcastClient.newHazelcastClient;
+import static org.springframework.util.CollectionUtils.isEmpty;
 
 import java.util.List;
 
@@ -16,6 +17,9 @@ public class HazelcastConfig {
 
     @Bean
     public HazelcastInstance commonCacheInstance(List<HazelCastSerializer<?>> cacheSerializers) {
+        if (isEmpty(cacheSerializers)) {
+            return null;
+        }
         var serializationConfig = new SerializationConfig();
         cacheSerializers.forEach(
             ser -> serializationConfig.addSerializerConfig(
