@@ -124,11 +124,6 @@
             </dependency>
             <dependency>
                 <groupId>com.urlshortener</groupId>
-                <artifactId>shortener-cache</artifactId>
-                <version>${project.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.urlshortener</groupId>
                 <artifactId>shortener-messaging</artifactId>
                 <version>${project.version}</version>
             </dependency>

@@ -17,6 +17,7 @@ import com.urlshortener.domain.UrlDomainService;
 import com.urlshortener.domain.entity.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
@@ -24,7 +25,7 @@ import reactor.core.publisher.Mono;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicationService {
+public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicationService, InitializingBean {
     private final ShortenerMapper shortenerMapper;
     private final UrlMessagePublisher messagePublisher;
     private final UrlRepository urlRepository;
@@ -32,6 +33,10 @@ public class UrlShortenerApplicationServiceImpl implements UrlShortenerApplicati
     private final UrlDomainService urlDomainService;
     private final CacheClient<String, Url> urlCacheClient;
     private final CacheClient<String, UrlShortenedResponse> responseCacheClient;
+    @Override
+    public void afterPropertiesSet() {
+        System.out.println();
+    }
     @Value("${application.base.uri}")
     private String baseUri;
 

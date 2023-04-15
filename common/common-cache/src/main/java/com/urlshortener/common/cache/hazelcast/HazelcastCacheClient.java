@@ -1,4 +1,6 @@
-package com.urlshortener.cache;
+package com.urlshortener.common.cache.hazelcast;
+
+import static java.util.UUID.randomUUID;
 
 import java.io.Serializable;
 import java.util.concurrent.TimeUnit;
@@ -6,15 +8,17 @@ import java.util.concurrent.TimeUnit;
 import com.hazelcast.core.HazelcastInstance;
 import com.hazelcast.map.IMap;
 import com.urlshortener.common.cache.CacheClient;
+import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
 
 @Component
-public class GenericCacheClient<K extends Serializable, V extends Serializable> implements CacheClient<K, V> {
+@Scope("prototype")
+public class HazelcastCacheClient<K extends Serializable, V extends Serializable> implements CacheClient<K, V> {
     private final IMap<K, V> cache;
 
-    public GenericCacheClient(Class<V> type, HazelcastInstance hazelcastInstance) {
-        this.cache = hazelcastInstance.getMap(type.getName().toLowerCase() + "_cache");
+    public HazelcastCacheClient(HazelcastInstance commonCacheInstance) {
+        this.cache = commonCacheInstance.getMap(randomUUID() + "_cache");
     }
 
     @Override

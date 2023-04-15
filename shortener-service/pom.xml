@@ -17,7 +17,6 @@
         <module>shortener-container</module>
         <module>shortener-dataaccess</module>
         <module>country-identifier</module>
-        <module>shortener-cache</module>
     </modules>
 
 </project>

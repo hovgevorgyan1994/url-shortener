@@ -1,5 +1,6 @@
-package com.urlshortener.cache.config.serializer;
+package com.urlshortener.application.service.cache;
 
+import com.urlshortener.common.cache.hazelcast.config.HazelCastSerializer;
 import com.urlshortener.domain.entity.Url;
 import org.springframework.stereotype.Component;
 

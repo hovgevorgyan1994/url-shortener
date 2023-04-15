@@ -1,4 +1,4 @@
-package com.urlshortener.cache.config.serializer;
+package com.urlshortener.common.cache.hazelcast.config;
 
 import static org.codehaus.jackson.smile.SmileParser.Feature.REQUIRE_HEADER;
 

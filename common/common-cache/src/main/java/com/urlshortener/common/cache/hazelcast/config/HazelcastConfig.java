@@ -1,4 +1,4 @@
-package com.urlshortener.cache.config;
+package com.urlshortener.common.cache.hazelcast.config;
 
 import static com.hazelcast.client.HazelcastClient.newHazelcastClient;
 
@@ -8,26 +8,14 @@ import com.hazelcast.client.config.ClientConfig;
 import com.hazelcast.config.SerializationConfig;
 import com.hazelcast.config.SerializerConfig;
 import com.hazelcast.core.HazelcastInstance;
-import com.urlshortener.cache.config.serializer.HazelCastSerializer;
-import lombok.Getter;
-import lombok.Setter;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-@Getter
-@Setter
 @Configuration
-@EnableCaching
-@ConfigurationProperties(prefix = "hazelcast.cache")
-public class CacheConfig {
-    private int expiration;
-    private String responseCache;
-    private String urlCache;
+public class HazelcastConfig {
 
     @Bean
-    public HazelcastInstance urlCacheHazelcastInstance(List<HazelCastSerializer<?>> cacheSerializers) {
+    public HazelcastInstance commonCacheInstance(List<HazelCastSerializer<?>> cacheSerializers) {
         var serializationConfig = new SerializationConfig();
         cacheSerializers.forEach(
             ser -> serializationConfig.addSerializerConfig(
