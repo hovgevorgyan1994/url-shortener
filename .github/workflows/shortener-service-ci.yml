@@ -39,6 +39,6 @@ jobs:
       uses: docker/build-push-action@v4
       with:
           context: .
-          file: ./Dockerfile
+          file: shortener-service/shortener-container/Dockerfile
           push: true
-          tags: url.shortener/clockbox:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
