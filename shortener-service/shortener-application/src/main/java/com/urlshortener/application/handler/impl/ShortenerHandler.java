@@ -1,8 +1,8 @@
-package com.urlshortener.application.controller.impl;
+package com.urlshortener.application.handler.impl;
 
 import static java.net.URI.create;
 
-import com.urlshortener.application.controller.ShortenerApi;
+import com.urlshortener.application.handler.ShortenerApi;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
 import com.urlshortener.application.service.ports.input.RequestPublishingService;
 import com.urlshortener.application.service.ports.input.UrlShortenerApplicationService;
