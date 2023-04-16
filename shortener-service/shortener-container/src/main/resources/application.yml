@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://database-db-1:5432/postgres
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
   jpa:
@@ -28,6 +28,5 @@ hazelcast:
 
 
 countryidentifier:
-  config:
     ip-stack-api-key: 442464b9ca980cfab3858d8356e8dc88
     ip-stack-uri: http://api.ipstack.com/%s?access_key=%s

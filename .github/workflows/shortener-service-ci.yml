@@ -40,4 +40,11 @@ jobs:
           context: ./shortener-service/shortener-container
           file: ./shortener-service/shortener-container/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:${{github.run_number}}
+          tags: |
+            ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:${{github.run_number}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:latest
+          build-args: |
+            COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{ secrets.IP_STACK_API_KEY }}
+            COUNTRYIDENTIFIER_IP_STACK_API_URI=${{ secrets.IP_STACK_API_URI }}
+            SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
+            POSTGRES_USER=${{ secrets.POSTGRES_USER }}

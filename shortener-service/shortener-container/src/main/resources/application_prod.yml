@@ -1,0 +1,10 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+
+hazelcast:
+  cache:
+    expiration: 300 #minutes
+    response-cache: shortener-response-cache
+    url-cache: shortened-url-cache

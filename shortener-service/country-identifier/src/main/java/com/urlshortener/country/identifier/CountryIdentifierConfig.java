@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Setter
 @Configuration
-@ConfigurationProperties(prefix = "countryidentifier.config")
+@ConfigurationProperties(prefix = "countryidentifier")
 public class CountryIdentifierConfig {
 
     private String ipStackApiKey;
