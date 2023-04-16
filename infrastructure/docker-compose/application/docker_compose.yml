@@ -1,14 +1,14 @@
 version: '3.8'
 
 services:
-  my-app:
-    build: .
+  shortener-service:
+    image: hovo33651/shortener-service
     ports:
       - "8888:8888"
     depends_on:
       - postgres
     networks:
-      - my-network
+      - shortener-network
 
   postgres:
     image: postgres:14.1-alpine
@@ -16,11 +16,9 @@ services:
     restart: always
     ports:
       - '5432:5432'
-    volumes:
-      - db:/var/lib/postgresql/data
     networks:
       - shortener-network
 
 networks:
-  my-network:
+  shortener-network:
     driver: bridge

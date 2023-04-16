@@ -44,7 +44,6 @@ jobs:
             ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:${{github.run_number}}
             ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:latest
           build-args: |
-            SPRING_PROFILES_ACTIVE=prod
             COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{ secrets.IP_STACK_API_KEY }}
             COUNTRYIDENTIFIER_IP_STACK_API_URI=${{ secrets.IP_STACK_API_URI }}
             SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }}
