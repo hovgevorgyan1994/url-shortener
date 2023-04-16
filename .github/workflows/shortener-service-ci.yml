@@ -41,4 +41,4 @@ jobs:
           context: ./shortener-service/shortener-container
           file: ./shortener-service/shortener-container/Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/clockbox:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/shortener-service:${{github.run_number}}
