@@ -2,10 +2,14 @@ server:
   port: 8888
 
 spring:
-  datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
+  data:
+    r2dbc:
+      repositories:
+        enabled: true
   jpa:
     open-in-view: false
     show-sql: true

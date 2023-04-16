@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.urlshortener</groupId>
-            <artifactId>shortener-application-service</artifactId>
+            <artifactId>shortener-application</artifactId>
         </dependency>
         <dependency>
             <groupId>com.urlshortener</groupId>

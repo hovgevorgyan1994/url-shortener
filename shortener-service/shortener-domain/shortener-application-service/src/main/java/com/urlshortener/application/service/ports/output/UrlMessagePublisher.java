@@ -1,8 +1,9 @@
 package com.urlshortener.application.service.ports.output;
 
 import com.urlshortener.domain.event.UrlShortenedEvent;
+import reactor.core.publisher.Mono;
 
 public interface UrlMessagePublisher {
 
-    void publish(UrlShortenedEvent urlShortenedEvent);
+    Mono<Void> publish(UrlShortenedEvent urlShortenedEvent);
 }

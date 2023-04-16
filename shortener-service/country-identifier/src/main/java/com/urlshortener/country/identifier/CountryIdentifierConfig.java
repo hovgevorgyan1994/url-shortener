@@ -1,11 +1,13 @@
 package com.urlshortener.country.identifier;
 
-import java.net.http.HttpClient;
+import static org.springframework.http.HttpHeaders.CONTENT_TYPE;
+import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.reactive.function.client.WebClient;
 
 @Setter
 @Configuration
@@ -16,8 +18,10 @@ public class CountryIdentifierConfig {
     private String ipStackUri;
 
     @Bean
-    public HttpClient httpClient() {
-        return HttpClient.newHttpClient();
+    public WebClient webClient() {
+        return WebClient.builder()
+            .defaultHeader(CONTENT_TYPE, APPLICATION_JSON_VALUE)
+            .build();
     }
 
     public String getIpStackUri(String ipAddress) {

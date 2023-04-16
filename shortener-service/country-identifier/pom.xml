@@ -16,6 +16,10 @@
             <groupId>com.urlshortener</groupId>
             <artifactId>shortener-application-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>shortener-domain-core</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

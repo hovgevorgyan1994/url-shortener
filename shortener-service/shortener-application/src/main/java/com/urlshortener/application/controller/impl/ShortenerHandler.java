@@ -4,7 +4,7 @@ import static java.net.URI.create;
 
 import com.urlshortener.application.controller.ShortenerApi;
 import com.urlshortener.application.service.dto.ShortenUrlCommand;
-import com.urlshortener.application.service.dto.UrlShortenedResponse;
+import com.urlshortener.application.service.ports.input.RequestPublishingService;
 import com.urlshortener.application.service.ports.input.UrlShortenerApplicationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -18,13 +18,20 @@ import reactor.core.publisher.Mono;
 public class ShortenerHandler implements ShortenerApi {
 
     private final UrlShortenerApplicationService shortenerApplicationService;
+    private final RequestPublishingService requestPublishingService;
 
     @Override
     public Mono<ServerResponse> shortenUrl(ServerRequest serverRequest) {
         return serverRequest.bodyToMono(ShortenUrlCommand.class)
             .flatMap(command -> {
-                var response = shortenerApplicationService.shorten(command.withIpAddress(getHostString(serverRequest)));
-                return ServerResponse.ok().body(response, UrlShortenedResponse.class);
+                var shortenResponseMono =
+                    shortenerApplicationService.shorten(command.withIpAddress(getHostString(serverRequest)));
+                return requestPublishingService.publishRequest(command)
+                    .then(shortenResponseMono)
+                    .flatMap(response -> ServerResponse.ok().bodyValue(response))
+                    .onErrorResume(e -> {
+                        return shortenResponseMono.flatMap(response -> ServerResponse.ok().bodyValue(response));
+                    });
             });
     }
 

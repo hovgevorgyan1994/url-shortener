@@ -1,9 +1,10 @@
 package com.urlshortener.application.service.ports.output;
 
 import com.urlshortener.domain.entity.Url;
+import reactor.core.publisher.Mono;
 
 public interface UrlRepository {
-    Url persist(Url url);
+    Mono<Url> persist(Url url);
 
-    Url actualUrl(String urlId);
+    Mono<Url> actualUrl(String urlId);
 }

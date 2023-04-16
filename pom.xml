@@ -33,6 +33,7 @@
         <codehaus-jackson.version>1.9.13</codehaus-jackson.version>
         <hazelcast.version>4.0.6</hazelcast.version>
         <lombok.version>1.18.26</lombok.version>
+        <r2dbc-postgres.version>1.0.1.RELEASE</r2dbc-postgres.version>
     </properties>
 
     <dependencyManagement>
@@ -136,6 +137,11 @@
                 <groupId>org.apache.ignite</groupId>
                 <artifactId>ignite-spring-boot-autoconfigure-ext</artifactId>
                 <version>${apache-ignite.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.postgresql</groupId>
+                <artifactId>r2dbc-postgresql</artifactId>
+                <version>${r2dbc-postgres.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

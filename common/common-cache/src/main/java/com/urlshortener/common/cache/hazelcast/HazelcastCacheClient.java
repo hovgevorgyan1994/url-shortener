@@ -11,6 +11,7 @@ import com.urlshortener.common.cache.CacheClient;
 import org.springframework.context.annotation.Scope;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import reactor.core.publisher.Mono;
 
 @Component
 @Scope("prototype")
@@ -22,22 +23,22 @@ public class HazelcastCacheClient<K extends Serializable, V extends Serializable
     }
 
     @Override
-    public void cache(@NonNull K key, @NonNull V value) {
-        cache.put(key, value);
+    public Mono<V> cache(@NonNull K key, @NonNull V value) {
+        return Mono.fromCompletionStage(cache.putAsync(key, value));
     }
 
     @Override
-    public void cache(@NonNull K key, @NonNull V value, long expiration) {
-        cache.put(key, value, expiration, TimeUnit.MINUTES);
+    public Mono<V> cache(@NonNull K key, @NonNull V value, long expiration) {
+        return Mono.fromCompletionStage(cache.putAsync(key, value, expiration, TimeUnit.MINUTES));
     }
 
     @Override
-    public void cache(@NonNull K key, @NonNull V value, long expiration, @NonNull TimeUnit timeUnit) {
-        cache.put(key, value, expiration, timeUnit);
+    public Mono<V> cache(@NonNull K key, @NonNull V value, long expiration, @NonNull TimeUnit timeUnit) {
+        return Mono.fromCompletionStage(cache.putAsync(key, value, expiration, timeUnit));
     }
 
     @Override
-    public V get(@NonNull K key) {
-        return cache.get(key);
+    public Mono<V> get(@NonNull K key) {
+        return Mono.fromCompletionStage(cache.getAsync(key));
     }
 }

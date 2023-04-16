@@ -1,5 +1,7 @@
 package com.urlshortener.application.service.ports.output;
 
+import reactor.core.publisher.Mono;
+
 public interface CountryIdentifier {
-    String identify(String ipAddress);
+    Mono<String> identify(String ipAddress);
 }

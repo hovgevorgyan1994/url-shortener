@@ -7,6 +7,7 @@ services:
       - "8888:8888"
     depends_on:
       - postgres
+      - hazelcast
     networks:
       - shortener-network
 
@@ -18,6 +19,21 @@ services:
       - '5432:5432'
     networks:
       - shortener-network
+
+  hazelcast:
+    image: hazelcast/hazelcast:5.2.1
+    container_name: hazelcast
+    ports:
+      - "5701:5701"
+#  management-center:
+#      image: hazelcast/management-center:5.2.1
+#      ports:
+#        - "8080:8080"
+#      environment:
+#        - MC_DEFAULT_CLUSTER=dev
+#        - MC_DEFAULT_CLUSTER_MEMBERS=hazelcast
+#      networks:
+#        - shortener-network
 
 networks:
   shortener-network:
