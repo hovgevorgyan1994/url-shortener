@@ -1,8 +1,4 @@
 spring:
-  datasource:
-    url:
-    username:
-    password:
   jpa:
     open-in-view: false
     show-sql: true
@@ -18,7 +14,3 @@ hazelcast:
     expiration: 300 #minutes
     response-cache: shortener-response-cache
     url-cache: shortened-url-cache
-
-countryidentifier:
-  ip-stack-api-key:
-  ip-stack-uri:
