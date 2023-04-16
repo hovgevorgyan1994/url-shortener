@@ -1,11 +1,5 @@
 FROM openjdk:17
 EXPOSE 8888
 WORKDIR /applications
-ENV SPRING_PROFILES_ACTIVE=prod
-ENV COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{secrets.IP_STACK_API_KEY}}
-ENV COUNTRYIDENTIFIER_IP_STACK_API_URI=${{secrets.IP_STACK_API_URI}}
-ENV SPRING_DATASOURCE_URL=${{secrets.SPRING_DATASOURCE_URL}}
-ENV POSTGRES_USER=${{secrets.POSTGRES_USER}}
-ENV POSTGRES_PASSWORD=${{secrets.POSTGRES_PASSWORD}}
 COPY target/shortener-container-1.0-SNAPSHOT.jar /applications/shortener-container.jar
 ENTRYPOINT ["java","-jar", "shortener-container.jar"]
