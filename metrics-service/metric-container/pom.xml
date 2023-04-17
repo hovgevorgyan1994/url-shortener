@@ -14,8 +14,45 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-webflux</artifactId>
+            <artifactId>spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-dataaccess</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-domain-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-messaging</artifactId>
         </dependency>
     </dependencies>
+
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>com.urlshortener.metric.service.container.MetricServiceApplication</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

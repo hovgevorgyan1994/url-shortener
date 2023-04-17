@@ -11,12 +11,11 @@
 
     <artifactId>metrics-service</artifactId>
     <packaging>pom</packaging>
+
     <modules>
-        <module>metric-application</module>
         <module>metric-container</module>
         <module>metric-dataaccess</module>
-        <module>metric-domain</module>
         <module>metric-messaging</module>
+        <module>metric-domain</module>
     </modules>
-
 </project>

@@ -11,4 +11,11 @@
 
     <artifactId>metric-application-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-domain-core</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

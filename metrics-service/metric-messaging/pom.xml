@@ -11,4 +11,19 @@
 
     <artifactId>metric-messaging</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>metric-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>kafka-consumer</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.urlshortener</groupId>
+            <artifactId>kafka-model</artifactId>
+        </dependency>
+    </dependencies>
+
 </project>

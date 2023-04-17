@@ -51,11 +51,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.2.0</version>
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>com.urlshortener.ShortenerServiceApplication</mainClass>
+                            <mainClass>com.urlshortener.shortener.service.container.ShortenerServiceApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
