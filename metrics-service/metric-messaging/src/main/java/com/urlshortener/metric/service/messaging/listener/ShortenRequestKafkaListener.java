@@ -2,7 +2,6 @@ package com.urlshortener.metric.service.messaging.listener;
 
 import java.util.List;
 
-import com.urlshortener.kafka.avro.model.ShortenRequestAvroModel;
 import com.urlshortener.kafka.consumer.KafkaConsumer;
 import com.urlshortener.metric.service.domain.application.service.ports.input.ShortenRequestMessageListener;
 import com.urlshortener.metric.service.messaging.mapper.ShortenRequestMapper;
@@ -17,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class ShortenRequestKafkaListener implements KafkaConsumer<ShortenRequestAvroModel> {
+public class ShortenRequestKafkaListener implements KafkaConsumer<String> {
 
     private final ShortenRequestMessageListener messageListener;
     private final ShortenRequestMapper requestMapper;
@@ -26,7 +25,7 @@ public class ShortenRequestKafkaListener implements KafkaConsumer<ShortenRequest
     @KafkaListener(
         id = "${kafka-consumer-config.shorten-consumer-group-id}",
         topics = "${shortener-service.shorten-request-topic-name}")
-    public void receive(@Payload List<ShortenRequestAvroModel> messages,
+    public void receive(@Payload List<String> messages,
                         @Header(KafkaHeaders.RECEIVED_KEY) List<String> keys,
                         @Header(KafkaHeaders.RECEIVED_PARTITION) List<Integer> partitions,
                         @Header(KafkaHeaders.OFFSET) List<Long> offsets) {
@@ -35,6 +34,6 @@ public class ShortenRequestKafkaListener implements KafkaConsumer<ShortenRequest
                  keys.toString(),
                  partitions.toString(),
                  offsets.toString());
-        messages.forEach(avroModel -> messageListener.saveMetrics(requestMapper.avroModelToRequestDetails(avroModel)));
+        messages.forEach(request -> messageListener.saveMetrics(requestMapper.toRequestDetails(request)));
     }
 }

@@ -1,22 +1,24 @@
 package com.urlshortener.metric.service.messaging.mapper;
 
-import java.time.LocalDateTime;
-
-import com.urlshortener.kafka.avro.model.ShortenRequestAvroModel;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.urlshortener.metric.service.domain.core.dto.ShortenRequestDetails;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 @Component
+@RequiredArgsConstructor
 public class ShortenRequestMapper {
 
-    public ShortenRequestDetails avroModelToRequestDetails(ShortenRequestAvroModel avroModel) {
-        return ShortenRequestDetails.builder()
-            .id(avroModel.getId())
-            .url(avroModel.getUrl())
-            .expiresAt(LocalDateTime.from(avroModel.getExpiresAat()))
-            .ipAddress(avroModel.getIpAddress())
-            .country(avroModel.getCountry())
-            .zonedDateTime(avroModel.getZonedDateTime())
-            .build();
+    private final ObjectMapper objectMapper;
+
+    public ShortenRequestDetails toRequestDetails(String shortenRequest) {
+        try {
+            return objectMapper.readValue(shortenRequest, new TypeReference<>() {
+            });
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

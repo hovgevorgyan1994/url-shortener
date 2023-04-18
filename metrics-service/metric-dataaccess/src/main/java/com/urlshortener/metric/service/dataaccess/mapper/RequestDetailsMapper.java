@@ -13,7 +13,6 @@ public class RequestDetailsMapper {
     public static RequestDetails toPersistentEntity(RequestDetailsEntity entity) {
         return RequestDetails.builder()
             .id(entity.getId().getValue())
-            .urlId(entity.getUrlId())
             .url(entity.getUrl())
             .expiresAt(entity.getExpiresAt())
             .ipAddress(entity.getIpAddress())
@@ -24,8 +23,7 @@ public class RequestDetailsMapper {
 
     public static RequestDetailsEntity toDomainEntity(RequestDetails details) {
         var requestDetailsEntity =
-            new RequestDetailsEntity(details.getUrlId(),
-                                     details.getUrl(),
+            new RequestDetailsEntity(details.getUrl(),
                                      details.getExpiresAt(), details.getIpAddress(), details.getCountry(),
                                      details.getZonedDatetime());
         requestDetailsEntity.setId(new DetailsEntityId(details.getId()));

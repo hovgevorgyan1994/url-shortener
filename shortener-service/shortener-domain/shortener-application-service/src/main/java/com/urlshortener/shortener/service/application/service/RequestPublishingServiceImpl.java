@@ -6,6 +6,7 @@ import com.urlshortener.shortener.service.application.service.ports.input.Reques
 import com.urlshortener.shortener.service.application.service.ports.output.CountryIdentifier;
 import com.urlshortener.shortener.service.application.service.ports.output.UrlMessagePublisher;
 import com.urlshortener.shortener.service.domain.UrlDomainService;
+import com.urlshortener.shortener.service.domain.entity.Url;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class RequestPublishingServiceImpl implements RequestPublishingService {
             .flatMap(command -> countryIdentifier.identify("5.134.80.0")
                 .map(country -> shortenerMapper.shortenCommandToRequestDetails(command, country))
                 .flatMap(requestDetails -> {
-                    var url = shortenerMapper.shortenCommandToUrl(command);
+                    Url url = shortenerMapper.shortenCommandToUrl(command);
                     return messagePublisher.publish(urlDomainService.shorten(url, requestDetails));
                 }));
     }

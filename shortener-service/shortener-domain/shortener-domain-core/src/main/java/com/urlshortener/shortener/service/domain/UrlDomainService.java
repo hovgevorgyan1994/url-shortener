@@ -6,4 +6,5 @@ import com.urlshortener.shortener.service.domain.event.UrlShortenedEvent;
 
 public interface UrlDomainService {
     UrlShortenedEvent shorten(Url url, RequestDetails requestDetails);
+
 }

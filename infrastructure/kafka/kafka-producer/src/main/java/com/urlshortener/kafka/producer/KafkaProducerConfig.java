@@ -6,7 +6,6 @@ import java.util.Map;
 
 import com.urlshortener.kafka.config.data.KafkaConfigData;
 import com.urlshortener.kafka.config.data.KafkaProducerConfigData;
-import org.apache.avro.specific.SpecificRecordBase;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,7 +14,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.core.ProducerFactory;
 
 @Configuration
-public class KafkaProducerConfig<K extends Serializable, V extends SpecificRecordBase> {
+public class KafkaProducerConfig<K extends Serializable, V> {
 
     private final KafkaConfigData kafkaConfigData;
     private final KafkaProducerConfigData kafkaProducerConfigData;

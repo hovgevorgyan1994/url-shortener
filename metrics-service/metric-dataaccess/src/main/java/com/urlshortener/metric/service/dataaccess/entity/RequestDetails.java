@@ -1,6 +1,6 @@
 package com.urlshortener.metric.service.dataaccess.entity;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.UUID;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,10 +20,9 @@ import lombok.Setter;
 public class RequestDetails {
     @Id
     private UUID id;
-    private String urlId;
     private String url;
-    private LocalDateTime expiresAt;
+    private Instant expiresAt;
     private String ipAddress;
     private String country;
-    private LocalDateTime zonedDatetime;
+    private Instant zonedDatetime;
 }
