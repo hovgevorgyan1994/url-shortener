@@ -4,8 +4,8 @@ on:
   push:
     branches: [ "master" ]
     paths:
-      -'metrics-service/**'
-      -'pom.xml'
+      - 'metrics-service/**'
+      - 'pom.xml'
 
 
 jobs:
