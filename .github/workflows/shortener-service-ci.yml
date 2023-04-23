@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    uses: .github/workflows/ci.yml
+    uses: ./.github/workflows/ci.yml
     with:
       application_name: shortener-service
-      application_path: shortener-service/shortener-container
+      application_path: ./shortener-service/shortener-container
