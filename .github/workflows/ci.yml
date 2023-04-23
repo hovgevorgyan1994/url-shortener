@@ -32,8 +32,8 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: $DOCKERHUB_USERNAME
-        password: $DOCKERHUB_TOKEN
+        username: hovo33651
+        password: hovo122533
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
     - name: Build and push
@@ -44,8 +44,8 @@ jobs:
           push: true
           args:
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:${{github.run_number}}
-            ${{ secrets.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:latest
+            $DOCKERHUB_USERNAME/$APPLICATION_NAME:${{github.run_number}}
+            $DOCKERHUB_USERNAME/$APPLICATION_NAME:latest
           build-args: |
             SPRING_PROFILES_ACTIVE=prod
             COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{ secrets.IP_STACK_API_KEY }}
