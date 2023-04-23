@@ -13,8 +13,6 @@ on:
 env:
   APPLICATION_NAME: ${{ inputs.application_name }}
   APPLICATION_PATH: ${{ inputs.application_path }}
-  DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
 
 jobs:
   build:
@@ -32,8 +30,8 @@ jobs:
     - name: Login to Docker Hub
       uses: docker/login-action@v2
       with:
-        username: ${{ env.DOCKERHUB_USERNAME }}
-        password: ${{ env.DOCKERHUB_TOKEN }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v2
     - name: Build and push
@@ -44,8 +42,8 @@ jobs:
           push: true
           args:
           tags: |
-            ${{ env.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:${{github.run_number}}
-            ${{ env.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APPLICATION_NAME }}:${{github.run_number}}
+            ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.APPLICATION_NAME }}:latest
           build-args: |
             SPRING_PROFILES_ACTIVE=prod
             COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{ secrets.IP_STACK_API_KEY }}
