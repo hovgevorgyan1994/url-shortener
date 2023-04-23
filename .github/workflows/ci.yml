@@ -37,12 +37,12 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: $APPLICATION_PATH
-          file: $APPLICATION_PATH/Dockerfile
+          context: ${{ env.APPLICATION_PATH }}
+          file: ${{ env.APPLICATION_PATH }}/Dockerfile
           push: true
           tags: |
-            hovo33651/$APPLICATION_NAME:${{github.run_number}}
-            hovo33651/$APPLICATION_NAME:latest
+            hovo33651/${{ env.APPLICATION_NAME }}:${{github.run_number}}
+            hovo33651/${{ env.APPLICATION_NAME }}:latest
           build-args: |
             SPRING_PROFILES_ACTIVE=prod
             COUNTRYIDENTIFIER_IP_STACK_API_KEY=${{ secrets.IP_STACK_API_KEY }}
