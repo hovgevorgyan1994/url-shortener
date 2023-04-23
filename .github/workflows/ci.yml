@@ -30,8 +30,6 @@ jobs:
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
-#          username: ${{ secrets.DOCKERHUB_USERNAME }}
-#          password: ${{ secrets.DOCKERHUB_TOKEN }}
           username: hovo33651
           password: hovo122533
       - name: Set up Docker Buildx
@@ -39,12 +37,10 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: ${{ env.APPLICATION_PATH }}
-          file: ${{ env.APPLICATION_PATH }}/Dockerfile
+          context: $APPLICATION_PATH
+          file: $APPLICATION_PATH/Dockerfile
           push: true
           tags: |
-#            ${{ secrets.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:${{github.run_number}}
-#            ${{ secrets.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:latest
             hovo33651/$APPLICATION_NAME:${{github.run_number}}
             hovo33651/$APPLICATION_NAME:latest
           build-args: |
