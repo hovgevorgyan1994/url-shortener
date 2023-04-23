@@ -12,6 +12,7 @@
     <artifactId>metrics-service</artifactId>
     <packaging>pom</packaging>
 
+
     <modules>
         <module>metric-container</module>
         <module>metric-dataaccess</module>
