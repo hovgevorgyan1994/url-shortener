@@ -14,7 +14,7 @@ env:
   APPLICATION_NAME: ${{ inputs.application_name }}
   APPLICATION_PATH: ${{ inputs.application_path }}
   DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_TOKEN }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKERHUB_PASS }}
 
 jobs:
   build:
