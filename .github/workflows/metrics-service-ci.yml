@@ -7,6 +7,7 @@ on:
       -'metrics-service/**'
       -'pom.xml'
 
+
 jobs:
   build:
     uses: ./.github/workflows/ci.yml
