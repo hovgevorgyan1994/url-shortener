@@ -39,8 +39,8 @@ jobs:
       - name: Build and push
         uses: docker/build-push-action@v4
         with:
-          context: $APPLICATION_PATH
-          file: $APPLICATION_PATH/Dockerfile
+          context: ${{ env.APPLICATION_PATH }}
+          file: ${{ env.APPLICATION_PATH }}/Dockerfile
           push: true
           tags: |
 #            ${{ secrets.DOCKERHUB_USERNAME }}/$APPLICATION_NAME:${{github.run_number}}
