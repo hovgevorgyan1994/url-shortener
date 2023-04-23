@@ -11,5 +11,5 @@ jobs:
   build:
     uses: ./github/workflows/ci.yml
     with:
-      application_name: metrics-service
-      application_path: ./metrics-service/metric-container
+        application_name: metrics-service
+        application_path: ./metrics-service/metric-container
