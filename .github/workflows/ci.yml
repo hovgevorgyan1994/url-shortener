@@ -26,6 +26,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      - name: Print environment variables
+        run: |
+          echo "APPLICATION_NAME: $APPLICATION_NAME"
+          echo "APPLICATION_PATH: $APPLICATION_PATH"
+          echo "DOCKER_USERNAME: $DOCKER_USERNAME"
+
       - uses: actions/checkout@v3
       - name: Set up JDK 17
         uses: actions/setup-java@v3
