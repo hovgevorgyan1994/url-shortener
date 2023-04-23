@@ -7,12 +7,11 @@ on:
       - 'shortener-service/**'
       - 'pom.xml'
 
-
 jobs:
   build:
     uses: ./.github/workflows/ci.yml
     with:
       application_name: shortener-service
       application_path: ./shortener-service/shortener-container
-      docker_username: ${{ secrets.DOCKERHUB_USERNAME }}
-      docker_password: ${{ secrets.DOCKERHUB_PASS }}
+      docker_username: hovo33651
+      docker_password: hovo122533
