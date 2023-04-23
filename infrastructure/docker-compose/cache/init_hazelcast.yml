@@ -4,10 +4,6 @@ services:
     image: hazelcast/hazelcast:5.2.1
     ports:
       - "5701:5701"
-#  hazelcast2:
-#    image: hazelcast/hazelcast:5.2.1
-#    ports:
-#      - "5702:5702"
   management-center:
     image: hazelcast/management-center:5.2.1
     ports:
