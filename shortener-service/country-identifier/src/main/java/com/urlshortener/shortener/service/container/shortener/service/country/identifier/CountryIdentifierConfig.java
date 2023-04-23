@@ -17,6 +17,7 @@ public class CountryIdentifierConfig {
     private String ipStackApiKey;
     private String ipStackUri;
 
+
     @Bean
     public WebClient webClient() {
         return WebClient.builder()
